@@ -166,4 +166,22 @@ class LikesController extends AppBaseController
             return json_encode(['response' => true]);
         }
     }
+
+    public function assessLike(Request $request) {
+        if ($request->ajax()) {
+            $like = Likes::where('post_id', $request['post_id'])
+                        ->where('user_id', $request['user_id'])
+                        ->get();
+
+            if (count($like) > 0) {
+                Likes::where('post_id', $request['post_id'])
+                        ->where('user_id', $request['user_id'])
+                        ->delete();
+
+                return json_encode(['result' => 'unliked']);
+            } else {
+                return json_encode(['result' => 'liked']);
+            }            
+        }
+    }
 }

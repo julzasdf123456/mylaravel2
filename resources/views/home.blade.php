@@ -46,6 +46,30 @@
 
         function like(id) {
             $.ajax({
+                url : '/likes/assess-like',
+                type : 'GET',
+                data : {
+                    post_id : id,
+                    user_id : "{{ Auth::id() }}",
+                },
+                success : function(result) {
+                    var data = JSON.parse(result);
+
+                    if (data['result'] == 'liked') {
+                        addLike(id);
+                    } else {
+                        $('#heart-' + id).removeClass('fas fa-heart').addClass('far fa-heart');
+                        $('#like-' + id).text(parseInt($('#like-' + id).text())-1);
+                    }
+                },
+                error : function(error) {
+                    alert('Error liking sheeeeeeet');
+                }
+            });
+        }
+
+        function addLike(id) {
+            $.ajax({
                 url : '/likes/like',
                 type : 'POST',
                 data : {
