@@ -33,3 +33,5 @@ Route::resource('posts', App\Http\Controllers\PostsController::class);
 Route::post('/likes/like', [App\Http\Controllers\LikesController::class, 'like'])->name('likes.like');
 Route::get('/likes/assess-like', [App\Http\Controllers\LikesController::class, 'assessLike'])->name('likes.assess-like');
 Route::resource('likes', App\Http\Controllers\LikesController::class);
+
+Route::resource('logs', App\Http\Controllers\LogsController::class);
