@@ -9,6 +9,7 @@ use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Str;
 use Illuminate\Support\Facades\Validator;
 use App\Models\User;
+use App\Models\Logs;
 use Flash;
 use Response;
 
@@ -25,15 +26,19 @@ class UsersController extends Controller {
             $success['id'] = $user->id;
             $success['name'] = $user->name;
 
+            $log = new Logs;
+            $log->userid = $user->id;
+            $log->log = "Login";
+            $log->logdetails = "User $user->username has logged in into my system";
+            $log->logtype = "API Login";
+            $log->save();
+
             // SAVE TOKEN
             $user->remember_token = $success['token'];
             $user->save();
             return response()->json($success, $this->successStatus);
 
-            // log->id = $user->id
-            // log->log = "Login"
-            // log->logdetails = "User $user->username has logged in into my system"
-            // log->logtype = "API Login"
+            
         } else {
             return response()->json(['response' => 'User not found'], 404);
         }

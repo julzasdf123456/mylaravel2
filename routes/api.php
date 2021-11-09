@@ -3,6 +3,7 @@
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\API\UsersController;
+use App\Http\Controllers\API\PostController;
 
 /*
 |--------------------------------------------------------------------------
@@ -23,3 +24,8 @@ Route::post('login', [UsersController::class, 'login']);
 Route::post('register', [UsersController::class, 'register']);
 
 Route::post('reset-password', [UsersController::class, 'resetPassword']);
+
+// POSTS
+Route::get('get-all-posts', [PostController::class, 'getAllPosts']);
+Route::get('get-post', [PostController::class, 'getPost']);
+Route::get('search-post', [PostController::class, 'searchPost']);
